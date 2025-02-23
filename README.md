@@ -47,7 +47,7 @@ sc start rapl
 3. **Run the Experiment**  
    Execute the `main.py` script with **administrator privileges** to avoid access issues:
    ```sh
-   python test_jupyter.py
+   python test_vlc.py
    ```
 
 ---
