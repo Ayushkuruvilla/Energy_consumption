@@ -94,9 +94,6 @@ class SimulationResult:
                     continue
 
                 # Compute energy consumption
-                print(df["CPU_ENERGY (J)"].iloc[-1])
-                print(df["CPU_ENERGY (J)"].iloc[0])
-                print(df["CPU_ENERGY (J)"])
                 this_energy = conversion_error * (float(df["CPU_ENERGY (J)"].iloc[-1] - df["CPU_ENERGY (J)"].iloc[0])) % 65536
                 # print(f"Energy values (raw): {df['CPU_ENERGY (J)'].dropna().tolist()}")
                 print(f"Computed Energy: {this_energy} J")
@@ -133,6 +130,8 @@ class SimulationResult:
         # Normalize energy values
         if min_energy < max_energy:  # Prevent division by zero
             self.energy_norm = [(e - min_energy) / (max_energy - min_energy) for e in self.energy]
+            print("ENERGY NORM==============================================")
+            print(self.energy_norm)
         else:
             print("Warning: min_energy and max_energy are the same, skipping normalization")
             
@@ -197,10 +196,10 @@ class SimulationResult:
         for key, val in self.key_val().items():
             print(f"Outliers for {key}: {len(outliers(val))}")
 
-directory = f"output_jupyter"
+directory = f"output_vlc"
 simulations = [
-    SimulationResult("Jupyter-notebook Runs", f"{directory}/results_Jupyter-notebook_run_*.csv"),
-    SimulationResult("Jupyter-lab Runs", f"{directory}/results_Jupyter-lab_run_*.csv"),
+    SimulationResult("Hardware-Acceleration Enabled Runs", f"{directory}/results_vlc_hw_enabled_run_*.csv"),
+    SimulationResult("Hardware-Acceleration Disabled Runs", f"{directory}/results_vlc_hw_disabled_run_*.csv"),
 ]
 
 sims = len(simulations)
@@ -230,8 +229,6 @@ dpi = 300
 energy_values = [sim.energy for sim in simulations if len(sim.energy) > 0]
 
 for sim in simulations:
-    print(sim.label)
-    print(sim.energy)
     norm_energy_values = [sim.energy_norm for sim in simulations if len(sim.energy_norm) > 0]
     power_values = [sim.power for sim in simulations if len(sim.power) > 0]
     time_values = [sim.time for sim in simulations if len(sim.time) > 0]

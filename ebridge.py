@@ -35,7 +35,7 @@ def energyBridge(command):
             shell=True
         )
         print(f"Running command in admin terminal: {command} (PID: {process.pid})")
-        return process  # Return process object so `test_jupyter.py` can track it
+        return process  # Return process object so `test_vlc.py` can track it
     except Exception as e:
         print(f"Error launching command as admin: {e}")
         return None
