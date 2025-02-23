@@ -28,18 +28,18 @@ def setup_world():
     sleep(4)
 
 
-# Run the experiment (~15 seconds total)
+# Run the experiment (~ 30 seconds)
 def player_script():
-    # Reset the condition
+    # Reset the condition (teleport to starting position, set time (lighting) to day.
     pt.keyDown('t')
-    pt.write('/tp @p -189.410822 52 -186.3 -180 0', interval=0.05)
+    pt.write('/tp @p -189.410822 52 -172.3 -180 0', interval=0.05)
     pt.keyDown('enter')
 
     pt.keyDown('t')
     pt.write('/time set day', interval=0.05)
     pt.keyDown('enter')
 
-    duration = 10
+    duration = 15
 
     while duration != 0:
         move_character('w', 2)
