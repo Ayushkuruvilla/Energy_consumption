@@ -28,7 +28,7 @@ def close_terminal(process):
         print(f"Process {process.pid} already closed or does not exist.")
 
 def experiment():
-    N = 30  # Number of iterations per function/test
+    N = 1  # Number of iterations per function/test
 
     scripts = [webscript_edge.edge, webscript_brave.brave]
 
@@ -59,7 +59,7 @@ def experiment():
 
         # Wait before the next iteration
         print("sleeping before next iteration...")
-        time.sleep(20)
+        time.sleep(10)
 
         cleanup()
 

@@ -9,7 +9,7 @@ BROWSERS = {
     "brave": "C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe"
 }
 
-directory = f"output"
+directory = f"output_3"
 # Define ChatGPT URL
 CHATGPT_URL = "https://chat.openai.com/"
 

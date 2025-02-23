@@ -63,55 +63,57 @@ class SimulationResult:
     def get_data(self):
         min_energy = float('inf')
         max_energy = float('-inf')
-        conversion_error = 1000 * 1000 * (1/2) ** 14  # Check if this factor is causing issues
-        # conversion_error = 1  # Uncomment this for debugging
+        # conversion_error = 1000 * 1000 * (1/2) ** 14  # Check if this factor is causing issues
+        conversion_error = 1  # Uncomment this for debugging
 
         #print(f"\nProcessing files for {self.label}: {glob.glob(self.path_glob)}")
 
         """Get the execution time, CPU energy, and CPU temperature."""
         for energibridge_data_file in glob.glob(self.path_glob):
-            #print(f"\nReading file: {energibridge_data_file}")
+            print(f"\nReading file: {energibridge_data_file}")
             try:
                 df = pandas.read_csv(energibridge_data_file, sep=",")
-                #print(f"Columns in {energibridge_data_file}: {df.columns.tolist()}")
-                #print(f"First few rows:\n{df.head()}")
+                # print(f"Columns in {energibridge_data_file}: {df.columns.tolist()}")
+                # print(f"First few rows:\n{df.head()}")
 
                 # Check if 'Time' column exists and has valid values
                 if "Time" not in df.columns or df["Time"].isnull().all():
-                    #print(f"Warning: 'Time' column missing or all values are NaN in {energibridge_data_file}")
+                    print(f"Warning: 'Time' column missing or all values are NaN in {energibridge_data_file}")
                     continue
 
                 # Compute execution time
                 this_time = int(df["Time"].iloc[-1] - df["Time"].iloc[0])
                 this_time_s = this_time / 1000
-                #print(f"Execution time: {this_time_s} seconds")
+                print(f"Execution time: {this_time_s} seconds")
 
                 self.time.append(this_time_s)
 
-                # Check if 'PACKAGE_ENERGY (J)' column exists
-                if "PACKAGE_ENERGY (J)" not in df.columns or df["PACKAGE_ENERGY (J)"].isnull().all():
-                    #print(f"Warning: 'PACKAGE_ENERGY (J)' column missing or all values are NaN in {energibridge_data_file}")
+                # Check if 'CPU_ENERGY (J)' column exists
+                if "CPU_ENERGY (J)" not in df.columns or df["CPU_ENERGY (J)"].isnull().all():
+                    print(f"Warning: 'CPU_ENERGY (J)' column missing or all values are NaN in {energibridge_data_file}")
                     continue
 
                 # Compute energy consumption
-                this_energy = conversion_error * float(df["PACKAGE_ENERGY (J)"].iloc[-1] - df["PACKAGE_ENERGY (J)"].iloc[0])
-                #print(f"Energy values (raw): {df['PACKAGE_ENERGY (J)'].dropna().tolist()}")
-                #print(f"Computed Energy: {this_energy} J")
+                print(df["CPU_ENERGY (J)"].iloc[-1])
+                print(df["CPU_ENERGY (J)"].iloc[0])
+                print(df["CPU_ENERGY (J)"])
+                this_energy = conversion_error * (float(df["CPU_ENERGY (J)"].iloc[-1] - df["CPU_ENERGY (J)"].iloc[0])) % 65536
+                # print(f"Energy values (raw): {df['CPU_ENERGY (J)'].dropna().tolist()}")
+                print(f"Computed Energy: {this_energy} J")
 
-                min_energy = min(min_energy, this_energy)
-                max_energy = max(max_energy, this_energy)
                 self.energy.append(this_energy)
+                print(self.energy)
                 self.power.append(this_energy / this_time_s)
                 self.n += 1
 
                 # Check for corresponding JSON file
                 json_file = energibridge_data_file.replace(".csv", ".json")
-                #print(f"Looking for JSON file: {json_file}")
+                print(f"Looking for JSON file: {json_file}")
 
                 try:
                     with open(json_file) as f:
                         data = json.load(f)
-                        #print(f"JSON Data Keys: {data.keys()}")
+                        print(f"JSON Data Keys: {data.keys()}")
 
                         # Extract temperature if available
                         if "k10temp-pci-00c3" in data and "Tctl" in data["k10temp-pci-00c3"]:
@@ -173,7 +175,7 @@ class SimulationResult:
                 if isnan(pvalue):
                     continue
                 
-                print(f"t-test p-value: {pvalue}")
+                print(f"t-test p-value for {key}: {pvalue}")
                 for skey in ["mean", "median"]:
                     v1 = self.stats[key][skey]
                     v2 = other.stats[key][skey]
@@ -194,10 +196,10 @@ class SimulationResult:
         for key, val in self.key_val().items():
             print(f"Outliers for {key}: {len(outliers(val))}")
 
-directory = f"output2"
+directory = f"output_jupyter"
 simulations = [
-    SimulationResult("Brave Runs", f"{directory}/brave_*.csv"),
-    SimulationResult("Edge Runs", f"{directory}/edge_*.csv"),
+    SimulationResult("Jupyter-notebook Runs", f"{directory}/results_Jupyter-notebook_run_*.csv"),
+    SimulationResult("Jupyter-lab Runs", f"{directory}/results_Jupyter-lab_run_*.csv"),
 ]
 
 sims = len(simulations)
@@ -225,16 +227,22 @@ y_label_energy = "Energy [J]"
 dpi = 300
 
 energy_values = [sim.energy for sim in simulations if len(sim.energy) > 0]
-norm_energy_values = [sim.energy_norm for sim in simulations if len(sim.energy_norm) > 0]
-power_values = [sim.power for sim in simulations if len(sim.power) > 0]
-time_values = [sim.time for sim in simulations if len(sim.time) > 0]
-temp_values = [sim.temp for sim in simulations if len(sim.temp) > 0]  # Only include if temp data exists
+
+for sim in simulations:
+    print(sim.label)
+    print(sim.energy)
+    norm_energy_values = [sim.energy_norm for sim in simulations if len(sim.energy_norm) > 0]
+    power_values = [sim.power for sim in simulations if len(sim.power) > 0]
+    time_values = [sim.time for sim in simulations if len(sim.time) > 0]
+    temp_values = [sim.temp for sim in simulations if len(sim.temp) > 0]  # Only include if temp data exists
 
 ticks = [i + 1 for i in range(len(simulations))]
 labels = [f'{sim.label}\n(n={sim.n})' for sim in simulations]
 
 # Function to plot both boxplot and violin plot
 def plot_violin_and_boxplot(data, title, ylabel, filename):
+    # print(f'{title}-------------------------')
+    # print(data)
     if len(data) > 0:  # Only plot if data exists
         plt.figure()
         plt.boxplot(data)
