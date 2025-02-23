@@ -1,31 +1,34 @@
 import subprocess
 import pyautogui as pt
 from time import sleep
+import os
+import argparse
 
 # Path to Minecraft Launcher
 game_PATH = "C:/Program Files (x86)/Minecraft Launcher/MinecraftLauncher.exe"
+images_PATH = os.path.dirname(os.path.abspath(__file__))+"\\images\\"
 
 
-# Navigate to the world file.
+# Navigate to the world file (45 seconds total).
 def setup_world():
     # Open Launcher (10 seconds).
     subprocess.Popen([game_PATH], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     sleep(10)
 
     # Click on 'Play' and load the game (30 seconds).
-    nav_to_image('images\play.png', 5)
+    nav_to_image(images_PATH+'play.png', 5)
     sleep(30)
 
     # Navigate to the world (1 second).
-    nav_to_image('images\singleplayer.png', 5)
+    nav_to_image(images_PATH+'singleplayer.png', 5)
     sleep(1)
 
     # Open and load the world (4 seconds).
-    nav_to_image('images\icon.png', 5)
+    nav_to_image(images_PATH+'icon.png', 5)
     sleep(4)
 
 
-# Run the experiment.
+# Run the experiment (~15 seconds total)
 def player_script():
     # Reset the condition
     pt.keyDown('t')
@@ -36,8 +39,6 @@ def player_script():
     pt.write('/time set day', interval=0.05)
     pt.keyDown('enter')
 
-    #TODO: I would recommend starting energibridge right around here...
-
     duration = 10
 
     while duration != 0:
@@ -45,9 +46,8 @@ def player_script():
         duration -= 1
         print('Time remaining: ', duration)
 
-    #TODO: And ending it here!
 
-
+# Run the experiment (execution averages ~75 seconds)
 def run(shaders=False):
     print("\n==== Running test on minecraft ====")
 
@@ -69,9 +69,7 @@ def run(shaders=False):
 
     # STEP 3: Close the game and log.
     print("Closing game...")
-    pt.keyDown('esc')
-    nav_to_image('images\close.png', 5)
-    sleep(5)  # Wait for processes to end.
+    pt.hotkey('alt', 'f4')
 
 
 # Find buttons
@@ -100,5 +98,24 @@ def move_character(key_press, duration, action='walking'):
 
 
 if __name__ == "__main__":
-    print("Running minecraft simulation")
-    run(shaders=True) # Configure whether shaders are enabled here.
+
+    # Arguments
+    parser = argparse.ArgumentParser(description="Run Minecraft simulation with optional shaders.")
+    parser.add_argument(
+        "--shaders",
+        action="store_true",
+        help="Enable shaders in the simulation"
+    )
+
+    args = parser.parse_args()
+
+    # Run the experiment
+    print("Running Minecraft simulation")
+
+    shaders = args.shaders
+    if shaders:
+        print("Running Minecraft simulation with shaders enabled.")
+    else:
+        print("Running Minecraft simulation without shaders.")
+
+    run(shaders=shaders)
