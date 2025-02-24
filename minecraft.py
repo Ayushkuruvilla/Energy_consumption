@@ -19,17 +19,21 @@ def setup_world():
     nav_to_image(images_PATH+'play.png', 5)
     sleep(30)
 
-    # Navigate to the world (1 second).
+    # Navigate to the world and load it (10 seconds).
     nav_to_image(images_PATH+'singleplayer.png', 5)
     sleep(1)
-
-    # Open and load the world (4 seconds).
     nav_to_image(images_PATH+'icon.png', 5)
-    sleep(4)
+    sleep(9)
 
 
-# Run the experiment (~ 30 seconds)
+# Run the experiment (~ 40 seconds)
 def player_script():
+
+    print("Running player script...")
+
+    # Set time designated for shader loading.
+    sleep(5)
+
     # Reset the condition (teleport to starting position, set time (lighting) to day.
     pt.keyDown('t')
     pt.write('/tp @p -189.410822 52 -172.3 -180 0', interval=0.05)
@@ -39,15 +43,16 @@ def player_script():
     pt.write('/time set day', interval=0.05)
     pt.keyDown('enter')
 
+    # Walk in a straight line for ~30 seconds.
     duration = 15
-
     while duration != 0:
         move_character('w', 2)
         duration -= 1
         print('Time remaining: ', duration)
 
+    print("Completed script!")
 
-# Run the experiment (execution averages ~75 seconds)
+# Run the experiment (execution averages ~90 seconds)
 def run(shaders=False):
     print("\n==== Running test on minecraft ====")
 
@@ -59,12 +64,10 @@ def run(shaders=False):
     if shaders:
         print("Shaders : ENABLED.")
         pt.keyDown('k')  # Enable shaders
-        sleep(5) # Some time to enable shaders to load
-
         player_script()
         pt.keyDown('k')  # Disable shaders
     else:
-        print("Running player script")
+        print("Shaders : DISABLED.")
         player_script()
 
     # STEP 3: Close the game and log.

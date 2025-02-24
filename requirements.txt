@@ -3,3 +3,6 @@ Pillow
 numpy
 psutil
 pyautogui
+matplotlib
+pandas
+scipy
