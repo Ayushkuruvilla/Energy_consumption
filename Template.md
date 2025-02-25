@@ -22,27 +22,20 @@ The experiment follows a structured process to measure energy consumption with m
 
 ## Experiment (Per Iteration)
 
-- Open Minecraft Launcher (10 seconds).
 
-- Launch the game (30 seconds).
+**Prerequisites:** Launch the game (title screen).
 
-- Navigate and load the world (10 seconds).
+1. **Starting buffer** (~5 seconds).
+2. **Navigate and load the world** (~5 seconds).
+3. **Run player experiment** (~40 seconds).
+   1. Buffer time (5 seconds). Load shaders **if enabled**.
+   2. Teleport player to start location. Set time to day (for lighting).
+   3. Walk forward (~30 seconds) through the map (designed to benchmark shader-lighting).
+   4. Disable shaders **if enabled**.
+4. **Quit the world and navigate back to the title screen** (~10 seconds).
+5. **Rest for 20 seconds**.
 
-- Run player experiment (~40 seconds).
-
-- Buffer time (5 seconds). Load shaders if enabled.
-
-- Teleport player to start location. Set time to day (for lighting).
-
-- Walk forward for ~30 seconds through the map (designed to benchmark shader-lighting).
-
-- Disable shaders if enabled.
-
-- Close game via Alt-F4.
-
-- Rest for 60 seconds.
-
-- Total experiment time averages ~90 seconds.
+**Total experiment time averages** ~60-65 seconds.
 
 ## Setup
 
