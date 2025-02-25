@@ -1,15 +1,16 @@
 import random
 import subprocess
 import time
+import warmup
 
-
-# Cooldown period between iterations
-def cooldown():
-    print("Waiting before next iteration...")
-    time.sleep(10)
 
 if __name__ == '__main__':
     print("Running experiment")
+
+    print("Beginning warmup phase...")
+    warmup.fibonacci_warmup()
+    print("Warmup finished!")
+
     iterations = 30
     scripts = [
                   ("minecraft.py --shaders", "shaders"),
@@ -34,6 +35,9 @@ if __name__ == '__main__':
         print(f"Running {label}_{relative_count}_{count}/{iterations*2}")
         try:
             subprocess.run(command, shell=True, check=True)  # Run the command
-            time.sleep(60) # Resting time (60 seconds)
         except subprocess.CalledProcessError as e:
             print(f"Error running {command}: {e}")
+
+        print("Resting...")
+        time.sleep(20)  # Resting time (20 seconds)
+        print("Done!")

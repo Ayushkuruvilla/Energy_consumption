@@ -9,20 +9,19 @@ game_PATH = "C:/Program Files (x86)/Minecraft Launcher/MinecraftLauncher.exe"
 images_PATH = os.path.dirname(os.path.abspath(__file__))+"\\images\\"
 
 
-# Navigate to the world file (45 seconds total).
-def setup_world():
-    # Open Launcher (10 seconds).
-    subprocess.Popen([game_PATH], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    sleep(10)
 
-    # Click on 'Play' and load the game (30 seconds).
-    nav_to_image(images_PATH+'play.png', 5)
-    sleep(30)
-
-    # Navigate to the world and load it (10 seconds).
-    nav_to_image(images_PATH+'singleplayer.png', 5)
+# Navigate to the world and load it (5 seconds).
+def load_world():
+    nav_to_image(images_PATH + 'singleplayer.png', 5)
     sleep(1)
-    nav_to_image(images_PATH+'icon.png', 5)
+    nav_to_image(images_PATH + 'icon.png', 2)
+    sleep(4)
+
+# Quit the game and go back to the title screen (10 seconds).
+def back_to_title():
+    pt.keyDown('esc')
+    sleep(1)
+    nav_to_image(images_PATH + 'save_and_quit.png', 1)
     sleep(9)
 
 
@@ -48,17 +47,16 @@ def player_script():
     while duration != 0:
         move_character('w', 2)
         duration -= 1
-        print('Time remaining: ', duration)
 
-    print("Completed script!")
-
-# Run the experiment (execution averages ~90 seconds)
+# Run the experiment (~60 seconds)
 def run(shaders=False):
     print("\n==== Running test on minecraft ====")
 
+    sleep(5)  # Starting buffer
+
     # STEP 1: Launch the game and navigate to the world.
-    print("Setting up the world.")
-    setup_world()
+    print("Loading the world.")
+    load_world()
 
     # STEP 2: Toggle shaders if needed.
     if shaders:
@@ -70,9 +68,9 @@ def run(shaders=False):
         print("Shaders : DISABLED.")
         player_script()
 
-    # STEP 3: Close the game and log.
-    print("Closing game...")
-    pt.hotkey('alt', 'f4')
+    # STEP 3: Back to title screen.
+    print("Back to title screen.")
+    back_to_title()
 
 
 # Find buttons
@@ -91,12 +89,7 @@ def nav_to_image(image, clicks, off_x=0, off_y=0):
 # Moves the player. Make sure to map the key bindings in game beforehand.
 def move_character(key_press, duration, action='walking'):
     pt.keyDown(key_press)
-
-    if action == 'walking':
-        print('Walking')
-
     sleep(duration)
-
     pt.keyUp(key_press)
 
 
