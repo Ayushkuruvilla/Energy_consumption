@@ -1,6 +1,6 @@
 # Energy Consumption Experiment
 
-This repository contains scripts and data for measuring and comparing energy consumption across different web browsers. The experiment is conducted using **EnergyBridge** and produces results stored in dedicated output folders.
+This repository contains scripts and data for measuring and comparing energy consumption betwen using and playing Minecraft with a Shader pack vs without . The experiment is conducted using **EnergyBridge** and produces results stored in dedicated output folders.
 
 ---
 
@@ -10,8 +10,8 @@ This repository contains scripts and data for measuring and comparing energy con
 📄 mc_experiment.py        # Main script to execute multiple randomized runs and manage the experiment
 📄 minecraft.py            # Script to simulate Minecraft runthrough with/without shaders ( Run 60 times)
 📄 ebridge.py              # EnergyBridge integration script for collecting energy consumption data
-📄 vis.py                  # Script to generate visualizations from the results
-📁 minecraft_output/       # Stores experimental results from the second set of runs
+📄 new_vis.py                  # Script to generate visualizations from the results
+📁 minecraft_output/       # Stores experimental results from 60 runs of minecraft
 📁 experiments/            # Contains other experiments tested out by the team
 ```
 
@@ -44,19 +44,18 @@ sc start rapl
 
 3. **Run the Experiment** 
    Execute the `mc_experiment.py` script with **administrator privileges** to avoid access issues:
-   Execute the `main.py` script with **administrator privileges** to avoid access issues:
    ```sh
-   python test_vlc.py
+   python mc_experiment.py
    ```
 
 ---
 
 ## **Generating Visualizations**
-After running the experiment, use `vis.py` to generate plots based on the collected energy consumption data:
+After running the experiment, use `new_vis.py` to generate plots based on the collected energy consumption data:
 ```sh
-python vis.py
+python new_vis.py
 ```
-The generated plots will help compare energy consumption between **Brave** and **Edge**.
+The generated plots will help compare energy consumption between minecraft with and without shaders.
 
 ---
 
@@ -68,3 +67,6 @@ The generated plots will help compare energy consumption between **Brave** and *
 
 ## **Contributors**
 - **Ayush Kuruvilla**
+- **Sahar Marossi**
+- **Andrea Onofrei**
+- **Yulin Chen**
