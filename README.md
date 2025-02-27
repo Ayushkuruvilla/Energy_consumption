@@ -6,15 +6,13 @@ This repository contains scripts and data for measuring and comparing energy con
 
 ## **Project Structure**
 ```
-📁 output/         # Stores experimental results from the first set of runs
-📁 output-2/       # Stores experimental results from the second set of runs
-📄 main.py        # Main script to execute multiple runs and manage the experiment
-📄 ebridge.py     # EnergyBridge integration script for collecting energy consumption data
-📄 vis.py         # Script to generate visualizations from the results
-📄 webscript_brave.py  # Script for running a single Brave browser test (executed 30 times in main.py)
-📄 webscript_edge.py   # Script for running a single Edge browser test (executed 30 times in main.py)
-📁 test_gpt/      # Initial/older versions of the experiment scripts
-📁 test/          # Additional early versions of the code
+
+📄 mc_experiment.py        # Main script to execute multiple randomized runs and manage the experiment
+📄 minecraft.py            # Script to simulate Minecraft runthrough with/without shaders ( Run 60 times)
+📄 ebridge.py              # EnergyBridge integration script for collecting energy consumption data
+📄 vis.py                  # Script to generate visualizations from the results
+📁 minecraft_output/       # Stores experimental results from the second set of runs
+📁 experiments/            # Contains other experiments tested out by the team
 ```
 
 ---
@@ -44,7 +42,8 @@ sc start rapl
    ```
    If the command runs successfully and generates a `results.csv` file, EnergyBridge is functioning correctly.
 
-3. **Run the Experiment**  
+3. **Run the Experiment** 
+   Execute the `mc_experiment.py` script with **administrator privileges** to avoid access issues:
    Execute the `main.py` script with **administrator privileges** to avoid access issues:
    ```sh
    python test_vlc.py
@@ -62,8 +61,8 @@ The generated plots will help compare energy consumption between **Brave** and *
 ---
 
 ## **Notes**
-- The experiment is executed **30 times** per browser to ensure statistically valid comparisons.
-- The `test_gpt/` and `test/` directories contain older versions of the experiment scripts.
+- The experiment is executed **30 times** with and without shaders each to ensure statistically valid comparisons.
+- The experiments folder contain other experiments tested out by the team to evaluate significance 
 
 ---
 
