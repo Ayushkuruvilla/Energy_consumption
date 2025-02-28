@@ -3,6 +3,8 @@
 This repository contains scripts and data for measuring and comparing energy consumption betwen using and playing Minecraft with a Shader pack vs without . The experiment is conducted using **EnergyBridge** and produces results stored in dedicated output folders.
 
 ---
+## **Video showing our Minecraft Experiment Shader vs No Shader difference**
+[Watch the Video](https://www.youtube.com/watch?v=WmE67KBySDA)
 
 ## **Project Structure**
 ```
