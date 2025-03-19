@@ -25,7 +25,7 @@ The **RAPL (Running Average Power Limit) service** is required for EnergyBridge 
 
 #### **Install and Start the RAPL Service**
 ```sh
-sc create rapl type=kernel binPath="C:\Users\91948\Documents\Q3\energibridge-\LibreHardwareMonitor.sys"
+sc create rapl type=kernel binPath="C:\Users\91948\Documents\Q3\Sustainable\Energy_consumption\LibreHardwareMonitor.sys"
 sc start rapl
 ```
 *(Replace the path with the correct location of `LibreHardwareMonitor.sys`.)*
