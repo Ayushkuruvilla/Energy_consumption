@@ -1,0 +1,28 @@
+C:\Users\91948\Documents\Q3\Sustainable\requests\setup.py:51: error: Need type annotation for "about" (hint: "about: dict[<type>, <type>] = ...")  [var-annotated]
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\compat.py:60: error: Library stubs not installed for "simplejson"  [import-untyped]
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\compat.py:60: note: Hint: "python3 -m pip install types-simplejson"
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\compat.py:60: note: (or run "mypy --install-types" to install all missing stub packages)
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\compat.py:60: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\compat.py:93: error: Module "urllib.request" has no attribute "proxy_bypass_environment"  [attr-defined]
+C:\Users\91948\Documents\Q3\Sustainable\requests\tests\conftest.py:4: error: Name "HTTPServer" already defined (possibly by an import)  [no-redef]
+C:\Users\91948\Documents\Q3\Sustainable\requests\tests\conftest.py:5: error: Name "SimpleHTTPRequestHandler" already defined (possibly by an import)  [no-redef]
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\cookies.py:20: error: Name "threading" already defined (by an import)  [no-redef]
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\utils.py:115: error: All conditional function variants must have identical signatures  [misc]
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\utils.py:115: note: Original:
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\utils.py:115: note:     def proxy_bypass(host: str) -> Any
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\utils.py:115: note: Redefinition:
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\utils.py:115: note:     def proxy_bypass(host: Any) -> Any
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\models.py:72: error: "LookupDict" has no attribute "moved"  [attr-defined]
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\models.py:73: error: "LookupDict" has no attribute "found"  [attr-defined]
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\models.py:74: error: "LookupDict" has no attribute "other"  [attr-defined]
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\models.py:75: error: "LookupDict" has no attribute "temporary_redirect"  [attr-defined]
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\models.py:76: error: "LookupDict" has no attribute "permanent_redirect"  [attr-defined]
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\adapters.py:95: error: Invalid type comment or annotation  [valid-type]
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\__init__.py:128: error: Incompatible types in assignment (expression has type "None", variable has type Module)  [assignment]
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\help.py:30: error: Name "cryptography" already defined on line 28  [no-redef]
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\help.py:31: error: Library stubs not installed for "OpenSSL"  [import-untyped]
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\help.py:31: note: Hint: "python3 -m pip install types-pyOpenSSL"
+C:\Users\91948\Documents\Q3\Sustainable\requests\src\requests\help.py:31: error: Name "OpenSSL" already defined on line 27  [no-redef]
+C:\Users\91948\Documents\Q3\Sustainable\requests\docs\conf.py:235: error: Need type annotation for "latex_elements" (hint: "latex_elements: dict[<type>, <type>] = ...")  [var-annotated]
+Found 18 errors in 1 file (checked 36 source files)
+Energy consumption in joules: 102.14215087890625 for 5.584057 sec of execution.
